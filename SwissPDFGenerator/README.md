@@ -23,4 +23,4 @@ python src/main.py
 
 # Tokens Github
 
-`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`
+`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`
