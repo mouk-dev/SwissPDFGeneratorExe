@@ -73,6 +73,10 @@ class PDFGenerator(QWidget):
                 NameObject("/NeedAppearances"): BooleanObject(True)
             })
 
+            writer.append(reader)  # Do this before accessing pages
+
+            page = writer.pages[0]
+
             data = {
                 "Name": self.faker.name(),
                 "Address": self.faker.street_address(),
@@ -91,18 +95,16 @@ class PDFGenerator(QWidget):
                 "YearRow1": str(self.faker.year()),
                 "DegreeRow1": "Bachelor",
                 "ResultRow1": "Passed",
-
                 "SchoolCollegeRow2": self.faker.company(),
                 "YearRow2": str(self.faker.year()),
                 "DegreeRow2": "Master",
                 "ResultRow2": "Passed",
 
-                # Work Experience
+                # Experience
                 "Employer Name": self.faker.company(),
                 "Designation": self.faker.job(),
                 "Employment dates": f"{self.faker.date()} - {self.faker.date()}",
                 "Responsibilities": self.faker.sentence(),
-
                 "Employer Name 2": self.faker.company(),
                 "Designation 2": self.faker.job(),
                 "Employment dates 2": f"{self.faker.date()} - {self.faker.date()}",
@@ -123,11 +125,9 @@ class PDFGenerator(QWidget):
                 "Date": self.faker.date(),
             }
 
-            page = writer.pages[0]
-            writer.append(reader)
             writer.update_page_form_field_values(page, data)
 
-            # ✅ Forcer l'état visuel des cases à cocher
+            # ✅ Forcer l’état visuel des cases à cocher
             for annot in page.get("/Annots", []):
                 field = annot.get_object()
                 if "/T" in field:
