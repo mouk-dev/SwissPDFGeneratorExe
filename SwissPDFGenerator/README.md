@@ -20,7 +20,3 @@ python src/main.py
 -   Génération automatique d'un nombre personnalisé de formulaires
 -   Insertion de données factices réalistes
 -   Export au format JSON
-
-# Tokens Github
-
-`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`
